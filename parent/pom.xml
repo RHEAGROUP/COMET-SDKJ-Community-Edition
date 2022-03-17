@@ -60,7 +60,7 @@
     <lombok.version>1.18.8</lombok.version>
     <commons.lang3.version>3.8.1</commons.lang3.version>
     <commons.math3.version>3.6.1</commons.math3.version>
-    <commons.io.version>2.6</commons.io.version>
+    <commons.io.version>2.7</commons.io.version>
     <guava.version>27.0.1-jre</guava.version>
     <reflections.version>0.9.11</reflections.version>
     <apiguardian.version>1.0.0</apiguardian.version>
