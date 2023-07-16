@@ -83,7 +83,7 @@
     <mockito.version>2.27.0</mockito.version>
     <rxjava.version>2.2.8</rxjava.version>
     <jackson.version>2.10.0</jackson.version>
-    <zip4j.version>2.1.2</zip4j.version>
+    <zip4j.version>2.11.3</zip4j.version>
   </properties>
 
   <dependencyManagement>
