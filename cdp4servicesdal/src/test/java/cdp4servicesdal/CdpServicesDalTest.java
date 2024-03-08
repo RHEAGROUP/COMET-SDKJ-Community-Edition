@@ -250,12 +250,37 @@ class CdpServicesDalTest {
   @Test
   void verifyUriIsBuiltCorrectly() throws URISyntaxException
   {
+    URI baseUri = URI.create("https://cdp4services-test.cdp4.org");
     QueryAttributesImpl queryAttributes = new QueryAttributesImpl();
     queryAttributes.setExtent(ExtentQueryAttribute.deep);
     queryAttributes.setIncludeReferenceData(false);
 
-    URI uri = this.dal.getUri(URI.create("https://cdp4services-test.cdp4.org"), queryAttributes, "SiteDirectory");
-    assertFalse(uri.toString().contains("%3F"));
+    URI uri = this.dal.getUri(baseUri, queryAttributes, "SiteDirectory");
+    assertFalse(uri.toString().contains("%2F"));
+
+    cdp4common.dto.SiteDirectory thing = new cdp4common.dto.SiteDirectory();
+    thing.setIid(UUID.randomUUID());
+
+    uri = this.dal.getUri(baseUri, queryAttributes, thing, "SiteDirectory");
+    assertFalse(uri.toString().contains("%2F"));
+  }
+
+  @Test
+  void verifyUriIsBuiltCorrectlyWhenPassingUnescapedString() throws URISyntaxException
+  {
+    URI baseUri = URI.create("https://cdp4services-test.cdp4.org");
+    QueryAttributesImpl queryAttributes = new QueryAttributesImpl();
+    queryAttributes.setExtent(ExtentQueryAttribute.deep);
+    queryAttributes.setIncludeReferenceData(false);
+
+    URI uri = this.dal.getUri(baseUri, queryAttributes, "SiteDirectory/545257ce-35c2-46bc-836a-08875468c22b");
+    assertFalse(uri.toString().contains("%2F"));
+
+    cdp4common.dto.SiteDirectory thing = new cdp4common.dto.SiteDirectory();
+    thing.setIid(UUID.randomUUID());
+
+    uri = this.dal.getUri(baseUri, queryAttributes, "SiteDirectory/545257ce-35c2-46bc-836a-08875468c22b");
+    assertFalse(uri.toString().contains("%2F"));
   }
 
   @Test

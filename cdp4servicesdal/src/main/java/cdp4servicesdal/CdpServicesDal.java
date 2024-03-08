@@ -66,6 +66,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.IntFunction;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -546,14 +547,15 @@ public class CdpServicesDal extends DalBase {
    */
   public URI getUri(URI baseUri, QueryAttributes queryAttributes, Thing thing, String... segments) throws URISyntaxException {
 
-    URI uri = this.getUri(baseUri, queryAttributes, segments);
+    List<String> segmentsWithThing = new ArrayList<>();
+    segmentsWithThing.addAll(Arrays.asList(segments));
 
     if(!StringUtils.isBlank(thing.getRoute()))
     {
-      return uri.resolve(new URI(thing.getRoute()));
+      segmentsWithThing.addAll(Arrays.asList(thing.getRoute().split("/")));
     }
 
-    return uri;
+    return this.getUri(baseUri, queryAttributes, segmentsWithThing.toArray(new String[0]));
   }
 
   /**
@@ -565,8 +567,24 @@ public class CdpServicesDal extends DalBase {
    */
   public URI getUri(URI uri, QueryAttributes queryAttributes, String... segments) throws URISyntaxException {
 
-    URIBuilder uriBuilder = new URIBuilder(uri)
-            .setPathSegments(Stream.of(segments).filter(x -> !StringUtils.isBlank(x)).collect(Collectors.toList()));
+    List<String> decodedSegments = new ArrayList<>();
+
+    for (String segment : Stream.of(segments).filter(x -> !StringUtils.isBlank(x)).collect(Collectors.toList()))
+    {
+      if(segment.contains("/"))
+      {
+        for (String part : Stream.of(segment.split("/")).filter(x -> !StringUtils.isBlank(x)).collect(Collectors.toList()))
+        {
+          decodedSegments.add(part);
+        }
+      }
+      else
+      {
+        decodedSegments.add(segment);
+      }
+    }
+
+    URIBuilder uriBuilder = new URIBuilder(uri).setPathSegments(decodedSegments);
 
     for (Map.Entry<String, String> parameter : queryAttributes.toUriParameters().entrySet())
     {

@@ -41,33 +41,33 @@ import lombok.experimental.FieldNameConstants;
  */
 @Getter
 @Setter
-@FieldNameConstants(innerTypeName = "FieldNames", level = AccessLevel.PACKAGE)
+@FieldNameConstants(innerTypeName = "FieldNames")
 public class DalQueryAttributes implements QueryAttributes {
 
   /**
    * Gets or sets the {@link ExtentQueryAttribute} of the query.
    */
-  private ExtentQueryAttribute extent;
+  protected ExtentQueryAttribute extent;
 
   /**
    * Gets or sets whether to query the include reference data.
    */
-  private Boolean includeReferenceData;
+  protected Boolean includeReferenceData;
 
   /**
    * Gets or sets whether to include all containers.
    */
-  private Boolean includeAllContainers;
+  protected Boolean includeAllContainers;
 
   /**
    * Gets or sets whether to include the file data.
    */
-  private Boolean includeFileData;
+  protected Boolean includeFileData;
 
   /**
    * Gets or sets the revision number.
    */
-  private Integer revisionNumber;
+  protected Integer revisionNumber;
 
   /**
    * Gets a dictionary of all attributes and attributes name
@@ -82,7 +82,23 @@ public class DalQueryAttributes implements QueryAttributes {
         parameters.put(FieldNames.revisionNumber, String.valueOf(this.getRevisionNumber().intValue()));
      }
 
-     return parameters;
+     if (this.getExtent() != null) {
+       parameters.put(FieldNames.extent, this.getExtent().name());
+     }
+
+     if (this.getIncludeReferenceData() != null) {
+       parameters.put(FieldNames.includeReferenceData, String.valueOf(this.getIncludeReferenceData().booleanValue()));
+     }
+
+     if (this.getIncludeAllContainers() != null) {
+       parameters.put(FieldNames.includeAllContainers, String.valueOf(this.getIncludeAllContainers().booleanValue()));
+     }
+
+     if (this.getIncludeFileData() != null) {
+       parameters.put(FieldNames.includeFileData, String.valueOf(this.getIncludeFileData().booleanValue()));
+     }
+
+    return parameters;
   }
 
   /**

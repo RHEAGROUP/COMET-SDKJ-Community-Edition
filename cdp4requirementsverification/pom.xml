@@ -5,7 +5,7 @@
     <parent>
         <artifactId>cdp4-sdk4j</artifactId>
         <groupId>com.rheagroup</groupId>
-        <version>3.0.0</version>
+        <version>3.1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -41,7 +41,7 @@
     </scm>
 
     <properties>
-        <cdp4dal.version>3.0.0</cdp4dal.version>
+        <cdp4dal.version>3.1.0</cdp4dal.version>
     </properties>
 
     <dependencies>

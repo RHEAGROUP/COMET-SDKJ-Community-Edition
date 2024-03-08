@@ -7,7 +7,7 @@
   <parent>
     <groupId>com.rheagroup</groupId>
     <artifactId>cdp4-sdk4j-parent</artifactId>
-    <version>3.0.0</version>
+    <version>3.1.0</version>
     <relativePath>../parent/pom.xml</relativePath>
   </parent>
 
@@ -43,8 +43,8 @@
   </scm>
 
   <properties>
-    <cdp4dal.version>3.0.0</cdp4dal.version>
-    <cdp4jsonserializer.version>3.0.0</cdp4jsonserializer.version>
+    <cdp4dal.version>3.1.0</cdp4dal.version>
+    <cdp4jsonserializer.version>3.1.0</cdp4jsonserializer.version>
   </properties>
 
   <dependencies>

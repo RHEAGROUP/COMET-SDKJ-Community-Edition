@@ -46,54 +46,6 @@ import lombok.experimental.FieldNameConstants;
 public class QueryAttributesImpl extends DalQueryAttributes {
 
   /**
-   * Gets or sets the {@link ExtentQueryAttribute} of the query.
-   */
-  private ExtentQueryAttribute extent;
-
-  /**
-   * Gets or sets whether to query the include reference data.
-   */
-  private Boolean includeReferenceData;
-
-  /**
-   * Gets or sets whether to include all containers.
-   */
-  private Boolean includeAllContainers;
-
-  /**
-   * Gets or sets whether to include the file data.
-   */
-  private Boolean includeFileData;
-
-  /**
-   * Gets a dictionary of all attributes and attributes name
-   *
-   * @return A {@linkplain Map} of {@linkplain String} attribute name {@linkplain String} value
-   */
-  @Override
-  public Map<String, String> toUriParameters() {
-    Map parameters = super.toUriParameters();
-
-    if (this.getExtent() != null) {
-      parameters.put(FieldNames.extent, this.getExtent().name());
-    }
-
-    if (this.getIncludeReferenceData() != null) {
-      parameters.put(FieldNames.includeReferenceData, String.valueOf(this.getIncludeReferenceData().booleanValue()));
-    }
-
-    if (this.getIncludeAllContainers() != null) {
-      parameters.put(FieldNames.includeAllContainers, String.valueOf(this.getIncludeAllContainers().booleanValue()));
-    }
-
-    if (this.getIncludeFileData() != null) {
-      parameters.put(FieldNames.includeFileData, String.valueOf(this.getIncludeFileData().booleanValue()));
-    }
-
-    return parameters;
-  }
-
-  /**
    * Converts all values of this {@link QueryAttributes} class to a uri attributes String.
    *
    * @return The {@link String} in the form ?param1=value1 separated by an ampersand.
